@@ -1,0 +1,40 @@
+<section>
+  <h2>Search Books</h2>
+  <div class="form-row">
+    <input id="q" placeholder="Search by title, author, isbn">
+    <button type="button" onclick="searchBooks()">Search</button>
+  </div>
+  {% if books is defined and books %}
+    <div id="results">
+      <table class="table"><thead><tr><th>ID</th><th>Title</th><th>Author</th><th>ISBN</th><th>Available</th></tr></thead>
+      <tbody>
+      {% for b in books %}
+        <tr>
+          <td>{{ b.id }}</td>
+          <td>{{ b.title }}</td>
+          <td>{{ b.author or '' }}</td>
+          <td>{{ b.isbn or '' }}</td>
+          <td>{{ b.available_copies if b.available_copies is not none else (b.available or '') }}</td>
+        </tr>
+      {% endfor %}
+      </tbody></table>
+    </div>
+  {% else %}
+    <div id="results">(results will appear here)</div>
+  {% endif %}
+</section>
+<script>
+// use global searchBooks from app.js if present
+if(typeof searchBooks === 'undefined'){
+  async function searchBooks(){
+    const q = document.getElementById('q').value || '';
+    try{
+      const resp = await fetch('/api/books?q=' + encodeURIComponent(q));
+      const data = await resp.json();
+      document.getElementById('results').innerText = JSON.stringify(data, null, 2);
+    }catch(e){
+      document.getElementById('results').innerText = 'Error: ' + e;
+    }
+  }
+}
+</script>

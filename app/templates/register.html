@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Register - Library{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="card" style="max-width:600px;margin:30px auto;">
+      <h2>Register</h2>
+      <form id="register-form" onsubmit="return registerUser(this)">
+        <label>Full name</label>
+        <input name="full_name" />
+        <label>Username</label>
+        <input name="username" required />
+        <label>Password</label>
+        <input name="password" type="password" required />
+        <label>Role</label>
+        <select name="role">
+          <option value="student">Student</option>
+          <option value="faculty">Faculty</option>
+          <option value="librarian">Librarian</option>
+        </select>
+        <div style="margin-top:12px"><button type="submit">Register</button></div>
+      </form>
+      <div id="register-result"></div>
+      <p class="muted">Already have an account? <a href="/login">Login</a></p>
+    </div>
+  </div>
+  <script src="/static/app.js"></script>
+{% endblock %}

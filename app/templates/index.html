@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f1f1;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        h2 {
+            margin-top: 40px;
+        }
+        input, select, button, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            background: #003366;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #002244;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid #aaa;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .section-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            background: #fafafa;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Library Management System</h1>
+</header>
+
+<div class="container">
+
+    <!-- User Authentication -->
+    <section class="section-box">
+        <h2>User Login</h2>
+        <form>
+            <label>Email</label>
+            <input type="email" placeholder="Enter email">
+
+            <label>Password</label>
+            <input type="password" placeholder="Enter password">
+
+            <button type="submit">Login</button>
+        </form>
+    </section>
+
+    <section class="section-box">
+        <h2>User Registration</h2>
+        <form>
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter full name">
+
+            <label>Email</label>
+            <input type="email" placeholder="Enter email">
+
+            <label>Password</label>
+            <input type="password" placeholder="Enter password">
+
+            <label>User Type</label>
+            <select>
+                <option>Student</option>
+                <option>Faculty</option>
+                <option>Librarian</option>
+            </select>
+
+            <button type="submit">Register</button>
+        </form>
+    </section>
+
+    <!-- Book Catalogue -->
+    <section class="section-box">
+        <h2>Search Books</h2>
+        <form>
+            <label>Search (Title, Author, ISBN)</label>
+            <input type="text" placeholder="Enter search keyword">
+            <button type="submit">Search</button>
+        </form>
+
+        <h3>Available Books</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>Design Patterns</td>
+                    <td>Gamma et al.</td>
+                    <td>978-0201633610</td>
+                    <td>Available</td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Clean Code</td>
+                    <td>Robert C. Martin</td>
+                    <td>978-0132350884</td>
+                    <td>Borrowed</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Borrow / Return -->
+    <section class="section-box">
+        <h2>Borrow a Book</h2>
+        <form>
+            <label>User ID</label>
+            <input type="text" placeholder="Enter user ID">
+
+            <label>Book ID</label>
+            <input type="text" placeholder="Enter book ID">
+
+            <button type="submit">Borrow</button>
+        </form>
+    </section>
+
+    <section class="section-box">
+        <h2>Return a Book</h2>
+        <form>
+            <label>User ID</label>
+            <input type="text" placeholder="Enter user ID">
+
+            <label>Book ID</label>
+            <input type="text" placeholder="Enter book ID">
+
+            <button type="submit">Return</button>
+        </form>
+    </section>
+
+    <!-- Librarian Tasks -->
+    <section class="section-box">
+        <h2>Librarian – Add Book</h2>
+        <form>
+            <label>Book Title</label>
+            <input type="text" placeholder="Enter book title">
+
+            <label>Author</label>
+            <input type="text" placeholder="Enter author name">
+
+            <label>ISBN</label>
+            <input type="text" placeholder="Enter ISBN">
+
+            <label>Number of Copies</label>
+            <input type="number" value="1">
+
+            <button type="submit">Add Book</button>
+        </form>
+    </section>
+
+    <section class="section-box">
+        <h2>Librarian – Remove Book</h2>
+        <form>
+            <label>Book ID</label>
+            <input type="text" placeholder="Enter book ID">
+
+            <button type="submit">Remove Book</button>
+        </form>
+    </section>
+
+    <!-- Reserved Books -->
+    <section class="section-box">
+        <h2>Reserved Books</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Reservation ID</th>
+                    <th>Book ID</th>
+                    <th>User ID</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>R-101</td>
+                    <td>002</td>
+                    <td>U-55</td>
+                    <td>Waiting</td>
+                </tr>
+                <tr>
+                    <td>R-102</td>
+                    <td>004</td>
+                    <td>U-88</td>
+                    <td>Available</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2025 Library Management System</p>
+</footer>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Management System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f1f1;
+            margin: 0;
+            padding: 0;
+        }
+        header, footer {
+            background: #003366;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        h2 {
+            margin-top: 40px;
+        }
+        input, select, button, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            background: #003366;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #002244;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid #aaa;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        .section-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            background: #fafafa;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Library Management System</h1>
+</header>
+
+<div class="container">
+
+    <!-- User Authentication -->
+    <section class="section-box">
+        <h2>User Login</h2>
+        <form>
+            <label>Email</label>
+            <input type="email" placeholder="Enter email">
+
+            <label>Password</label>
+            <input type="password" placeholder="Enter password">
+
+            <button type="submit">Login</button>
+        </form>
+    </section>
+
+    <section class="section-box">
+        <h2>User Registration</h2>
+        <form>
+            <label>Full Name</label>
+            <input type="text" placeholder="Enter full name">
+
+            <label>Email</label>
+            <input type="email" placeholder="Enter email">
+
+            <label>Password</label>
+            <input type="password" placeholder="Enter password">
+
+            <label>User Type</label>
+            <select>
+                <option>Student</option>
+                <option>Faculty</option>
+                <option>Librarian</option>
+            </select>
+
+            <button type="submit">Register</button>
+        </form>
+    </section>
+
+    <!-- Book Catalogue -->
+    <section class="section-box">
+        <h2>Search Books</h2>
+        <form>
+            <label>Search (Title, Author, ISBN)</label>
+            <input type="text" placeholder="Enter search keyword">
+            <button type="submit">Search</button>
+        </form>
+
+        <h3>Available Books</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Book ID</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>001</td>
+                    <td>Design Patterns</td>
+                    <td>Gamma et al.</td>
+                    <td>978-0201633610</td>
+                    <td>Available</td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Clean Code</td>
+                    <td>Robert C. Martin</td>
+                    <td>978-0132350884</td>
+                    <td>Borrowed</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Borrow / Return -->
+    <section class="section-box">
+        <h2>Borrow a Book</h2>
+        <form>
+            <label>User ID</label>
+            <input type="text" placeholder="Enter user ID">
+
+            <label>Book ID</label>
+            <input type="text" placeholder="Enter book ID">
+
+            <button type="submit">Borrow</button>
+        </form>
+    </section>
+
+    <section class="section-box">
+        <h2>Return a Book</h2>
+        <form>
+            <label>User ID</label>
+            <input type="text" placeholder="Enter user ID">
+
+            <label>Book ID</label>
+            <input type="text" placeholder="Enter book ID">
+
+            <button type="submit">Return</button>
+        </form>
+    </section>
+
+    <!-- Librarian Tasks -->
+    <section class="section-box">
+        <h2>Librarian – Add Book</h2>
+        <form>
+            <label>Book Title</label>
+            <input type="text" placeholder="Enter book title">
+
+            <label>Author</label>
+            <input type="text" placeholder="Enter author name">
+
+            <label>ISBN</label>
+            <input type="text" placeholder="Enter ISBN">
+
+            <label>Number of Copies</label>
+            <input type="number" value="1">
+
+            <button type="submit">Add Book</button>
+        </form>
+    </section>
+
+    <section class="section-box">
+        <h2>Librarian – Remove Book</h2>
+        <form>
+            <label>Book ID</label>
+            <input type="text" placeholder="Enter book ID">
+
+            <button type="submit">Remove Book</button>
+        </form>
+    </section>
+
+    <!-- Reserved Books -->
+    <section class="section-box">
+        <h2>Reserved Books</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Reservation ID</th>
+                    <th>Book ID</th>
+                    <th>User ID</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>R-101</td>
+                    <td>002</td>
+                    <td>U-55</td>
+                    <td>Waiting</td>
+                </tr>
+                <tr>
+                    <td>R-102</td>
+                    <td>004</td>
+                    <td>U-88</td>
+                    <td>Available</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+</div>
+
+<footer>
+    <p>&copy; 2025 Library Management System</p>
+</footer>
+
+</body>
+</html>
