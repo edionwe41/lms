@@ -13,7 +13,7 @@ class ReservationItem(BaseModel):
     notified: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class PagedReservations(BaseModel):
@@ -23,4 +23,4 @@ class PagedReservations(BaseModel):
     total: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True

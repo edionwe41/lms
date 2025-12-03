@@ -15,4 +15,4 @@ class BorrowRead(BaseModel):
     fee_applied: int
 
     class Config:
-        orm_mode = True
+        from_attributes = True

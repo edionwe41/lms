@@ -18,7 +18,7 @@ class BookRead(BaseModel):
     description: Optional[str]
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class BookUpdate(BaseModel):
     title: Optional[str]
