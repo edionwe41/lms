@@ -3,13 +3,17 @@
     <div class="container">
       <div class="navbar-content">
         <div class="navbar-brand">
-          <router-link to="/books" class="brand-link">
+          <router-link to="/dashboard" class="brand-link">
             <span class="brand-icon">📚</span>
             <span class="brand-text">Library MS</span>
           </router-link>
         </div>
 
         <div class="navbar-menu" :class="{ 'is-active': menuOpen }">
+          <router-link to="/dashboard" class="nav-link" @click="closeMenu">
+            <span class="nav-icon">🏠</span>
+            <span>Dashboard</span>
+          </router-link>
           <router-link to="/books" class="nav-link" @click="closeMenu">
             <span class="nav-icon">📖</span>
             <span>Books</span>

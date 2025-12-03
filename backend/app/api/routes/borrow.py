@@ -43,6 +43,43 @@ def return_book(
 
 
 
+@router.get("/", response_model=list)
+def get_all_borrows(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
+    """Get all borrows - only accessible by librarians/admins"""
+    from backend.app.db import models
+    
+    # Check if user is librarian or admin
+    if current_user.role not in ["librarian", "admin"]:
+        raise HTTPException(status_code=403, detail="Only librarians can view all borrows")
+    
+    # Join borrows with books and users to get full details
+    results = db.query(models.Borrow, models.Book, models.User).join(
+        models.Book, models.Book.id == models.Borrow.book_id
+    ).join(
+        models.User, models.User.id == models.Borrow.user_id
+    ).all()
+    
+    # Format the response to include book and user details
+    formatted_results = []
+    for borrow, book, user in results:
+        formatted_results.append({
+            "id": borrow.id,
+            "book_id": borrow.book_id,
+            "user_id": borrow.user_id,
+            "borrowed_at": borrow.borrowed_at,
+            "due_date": borrow.due_date,
+            "returned_at": borrow.returned_at,
+            "fee_applied": borrow.fee_applied,
+            "book_title": book.title,
+            "book_author": book.author,
+            "book_isbn": book.isbn,
+            "user_name": user.full_name,
+            "user_email": user.email
+        })
+    
+    return formatted_results
+
+
 @router.get("/me", response_model=list)
 def my_borrows(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     from backend.app.db import models

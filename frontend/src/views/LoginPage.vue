@@ -86,7 +86,7 @@ export default {
       try {
         const response = await api.login(loginForm.value.username, loginForm.value.password)
         authStore.setAuth(response.access_token, response.user)
-        router.push('/books')
+        router.push('/dashboard')
       } catch (err) {
         error.value = err.response?.data?.detail || 'Login failed. Please check your credentials.'
       } finally {

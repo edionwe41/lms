@@ -23,7 +23,9 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401 || error.response?.status === 403) {
+    // Only handle 401 Unauthorized (invalid/expired token)
+    // Don't handle 403 Forbidden (valid token but insufficient permissions)
+    if (error.response?.status === 401) {
       // Clear invalid auth
       localStorage.removeItem('token')
       localStorage.removeItem('user')
@@ -91,6 +93,11 @@ export default {
 
   async getMyBorrows() {
     const response = await api.get('/borrows/me')
+    return response.data
+  },
+
+  async getAllBorrows() {
+    const response = await api.get('/borrows/')
     return response.data
   },
 

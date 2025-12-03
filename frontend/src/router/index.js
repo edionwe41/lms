@@ -4,6 +4,7 @@ import { useAuthStore } from '../stores/auth'
 import Landing from '../views/Landing.vue'
 import LoginPage from '../views/LoginPage.vue'
 import Register from '../views/Register.vue'
+import Dashboard from '../views/Dashboard.vue'
 import Books from '../views/Books.vue'
 import MyBorrows from '../views/MyBorrows.vue'
 import Reservations from '../views/Reservations.vue'
@@ -27,6 +28,12 @@ const routes = [
     name: 'Register',
     component: Register,
     meta: { requiresAuth: false }
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
+    meta: { requiresAuth: true }
   },
   {
     path: '/books',
