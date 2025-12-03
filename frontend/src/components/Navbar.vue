@@ -3,11 +3,11 @@
     <div class="container">
       <div class="navbar-content">
         <div class="navbar-brand">
-          <router-link to="/">📚 Library MS</router-link>
+          <router-link to="/books">📚 Library MS</router-link>
         </div>
 
         <div class="navbar-menu">
-          <router-link to="/" class="nav-link">Books</router-link>
+          <router-link to="/books" class="nav-link">Books</router-link>
           <router-link to="/my-borrows" class="nav-link">My Borrows</router-link>
           <router-link to="/reservations" class="nav-link">Reservations</router-link>
           <router-link 
