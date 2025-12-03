@@ -4,51 +4,52 @@
     <div class="hero-section" id="hero">
       <div class="container">
         <div class="hero-content">
-          <div class="hero-text">
-            <h1 class="hero-title">📚 Library Management System</h1>
-            <p class="hero-subtitle">Your complete solution for managing books, borrows, and reservations</p>
-            
-            <div class="features-grid" id="features">
-              <div class="feature-item">
-                <div class="feature-icon">📖</div>
-                <h3>Browse Books</h3>
-                <p>Explore our extensive catalogue of books</p>
-              </div>
-              <div class="feature-item">
-                <div class="feature-icon">🔄</div>
-                <h3>Easy Borrowing</h3>
-                <p>Borrow and return books seamlessly</p>
-              </div>
-              <div class="feature-item">
-                <div class="feature-icon">🔔</div>
-                <h3>Real-time Updates</h3>
-                <p>Get instant notifications on your activity</p>
-              </div>
-              <div class="feature-item">
-                <div class="feature-icon">📅</div>
-                <h3>Reservations</h3>
-                <p>Reserve books when they're unavailable</p>
-              </div>
-            </div>
-
-            <div class="cta-buttons">
-              <button @click="goToLogin" class="btn btn-primary btn-lg">
-                Sign In
-              </button>
-              <button @click="goToRegister" class="btn btn-secondary btn-lg">
-                Create Account
-              </button>
-            </div>
+          <div class="hero-badge">
+            <span class="star-icon">⭐</span>
+            <span>Trusted by students, librarians & administrators</span>
           </div>
+          
+          <h1 class="hero-title">
+            Turn Book Management Into<br>
+            <span class="gradient-text">Seamless Experiences</span>
+          </h1>
+          
+          <p class="hero-subtitle">
+            Hand-picked features for library management, student engagement,<br>
+            and efficient operations — organize, track, and manage with confidence.
+          </p>
 
-          <div class="hero-image">
-            <div class="book-illustration">
-              <div class="book-stack">
-                <div class="book book-1">📗</div>
-                <div class="book book-2">📘</div>
-                <div class="book book-3">📕</div>
-              </div>
-            </div>
+          <button @click="goToRegister" class="hero-cta">
+            Get started for free
+            <span class="arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section" id="features">
+      <div class="container">
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-icon">📖</div>
+            <h3>Browse Books</h3>
+            <p>Explore our extensive catalogue of books</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🔄</div>
+            <h3>Easy Borrowing</h3>
+            <p>Borrow and return books seamlessly</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🔔</div>
+            <h3>Real-time Updates</h3>
+            <p>Get instant notifications on your activity</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">📅</div>
+            <h3>Reservations</h3>
+            <p>Reserve books when they're unavailable</p>
           </div>
         </div>
       </div>
@@ -130,167 +131,145 @@ export default {
 <style scoped>
 .landing-container {
   min-height: 100vh;
-  background: white;
+  background: linear-gradient(180deg, #e8ebff 0%, #f5f7ff 50%, #ffffff 100%);
   padding-top: 70px; /* Account for fixed nav */
 }
 
 .hero-section {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 100px 20px 120px;
+  padding: 80px 20px 120px;
   position: relative;
   overflow: hidden;
-}
-
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.05)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
-  background-size: cover;
-  opacity: 0.5;
+  text-align: center;
 }
 
 .hero-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  position: relative;
-  z-index: 1;
+  gap: 32px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #3730a3;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.star-icon {
+  font-size: 16px;
 }
 
 .hero-title {
-  font-size: 48px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  line-height: 1.2;
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #1a1a1a;
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
 }
 
 .hero-subtitle {
-  font-size: 20px;
-  margin-bottom: 40px;
-  opacity: 0.95;
-  line-height: 1.6;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #6b7280;
+  max-width: 720px;
+  margin: 0;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+}
+
+.hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+}
+
+.arrow {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+}
+
+.hero-cta:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* Features Section */
+.features-section {
+  padding: 60px 20px;
+  background: white;
 }
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .feature-item {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: white;
+  padding: 32px 24px;
+  border-radius: 16px;
+  border: 2px solid var(--border-light);
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.feature-item:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
 }
 
 .feature-icon {
-  font-size: 32px;
-  margin-bottom: 12px;
+  font-size: 48px;
+  margin-bottom: 16px;
 }
 
 .feature-item h3 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-dark);
 }
 
 .feature-item p {
-  font-size: 14px;
-  opacity: 0.9;
-  line-height: 1.5;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.btn-lg {
-  padding: 14px 32px;
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.btn-secondary {
-  background-color: white;
-  color: var(--primary-color);
-}
-
-.btn-secondary:hover {
-  background-color: #f8f9fa;
-  transform: translateY(-2px);
-}
-
-.hero-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.book-illustration {
-  position: relative;
-  width: 300px;
-  height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.book-stack {
-  position: relative;
-  transform: perspective(1000px) rotateY(-15deg);
-  animation: float 3s ease-in-out infinite;
-}
-
-.book {
-  font-size: 120px;
-  position: absolute;
-  transition: transform 0.3s ease;
-}
-
-.book-1 {
-  transform: translateX(-30px) translateY(20px) rotate(-5deg);
-  animation: bookFloat1 4s ease-in-out infinite;
-}
-
-.book-2 {
-  transform: translateX(0) translateY(0);
-  animation: bookFloat2 4s ease-in-out infinite 0.5s;
-}
-
-.book-3 {
-  transform: translateX(30px) translateY(-20px) rotate(5deg);
-  animation: bookFloat3 4s ease-in-out infinite 1s;
-}
-
-@keyframes float {
-  0%, 100% { transform: perspective(1000px) rotateY(-15deg) translateY(0); }
-  50% { transform: perspective(1000px) rotateY(-15deg) translateY(-20px); }
-}
-
-@keyframes bookFloat1 {
-  0%, 100% { transform: translateX(-30px) translateY(20px) rotate(-5deg); }
-  50% { transform: translateX(-30px) translateY(0px) rotate(-5deg); }
-}
-
-@keyframes bookFloat2 {
-  0%, 100% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(0) translateY(-15px); }
-}
-
-@keyframes bookFloat3 {
-  0%, 100% { transform: translateX(30px) translateY(-20px) rotate(5deg); }
-  50% { transform: translateX(30px) translateY(-35px) rotate(5deg); }
+  font-size: 15px;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin: 0;
 }
 
 .info-section {
@@ -300,8 +279,8 @@ export default {
 
 .section-title {
   text-align: center;
-  font-size: 36px;
-  font-weight: 600;
+  font-size: 42px;
+  font-weight: 700;
   margin-bottom: 50px;
   color: var(--text-dark);
 }
@@ -311,20 +290,25 @@ export default {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
   margin-bottom: 60px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .benefit-card {
   background: white;
   padding: 32px;
-  border-radius: 12px;
+  border-radius: 16px;
   box-shadow: var(--shadow);
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 2px solid transparent;
 }
 
 .benefit-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
+  border-color: var(--primary-light);
 }
 
 .benefit-icon {
@@ -334,7 +318,7 @@ export default {
 
 .benefit-card h3 {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 12px;
   color: var(--text-dark);
 }
@@ -350,11 +334,13 @@ export default {
   background: white;
   border-radius: 16px;
   box-shadow: var(--shadow-lg);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .final-cta h3 {
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 16px;
   color: var(--text-dark);
 }
@@ -378,30 +364,16 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .hero-content {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
   .hero-title {
-    font-size: 36px;
+    font-size: 42px;
   }
 
   .hero-subtitle {
-    font-size: 18px;
+    font-size: 16px;
   }
 
-  .hero-image {
-    order: -1;
-  }
-
-  .book-illustration {
-    width: 200px;
-    height: 200px;
-  }
-
-  .book {
-    font-size: 80px;
+  .hero-subtitle br {
+    display: none;
   }
 
   .features-grid {
@@ -409,11 +381,27 @@ export default {
   }
 
   .section-title {
-    font-size: 28px;
+    font-size: 32px;
   }
 
   .final-cta h3 {
     font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-badge {
+    font-size: 12px;
+    padding: 10px 20px;
+  }
+
+  .hero-cta {
+    font-size: 14px;
+    padding: 14px 28px;
   }
 }
 </style>
