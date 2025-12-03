@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Navbar v-if="isAuthenticated" />
+    <Navbar v-if="showDashboardNav" />
     <Notifications v-if="isAuthenticated" />
     <Toast />
     <router-view />
@@ -9,6 +9,7 @@
 
 <script>
 import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { useAuthStore } from './stores/auth'
 import Navbar from './components/Navbar.vue'
 import Notifications from './components/Notifications.vue'
@@ -23,10 +24,19 @@ export default {
   },
   setup() {
     const authStore = useAuthStore()
+    const route = useRoute()
+    
     const isAuthenticated = computed(() => authStore.isAuthenticated)
+    
+    // Show dashboard navbar only when authenticated and not on landing/auth pages
+    const showDashboardNav = computed(() => {
+      const publicRoutes = ['/', '/login', '/register']
+      return isAuthenticated.value && !publicRoutes.includes(route.path)
+    })
 
     return {
-      isAuthenticated
+      isAuthenticated,
+      showDashboardNav
     }
   }
 }

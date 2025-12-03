@@ -1,13 +1,14 @@
 <template>
   <div class="landing-container">
-    <div class="hero-section">
+    <LandingNav />
+    <div class="hero-section" id="hero">
       <div class="container">
         <div class="hero-content">
           <div class="hero-text">
             <h1 class="hero-title">📚 Library Management System</h1>
             <p class="hero-subtitle">Your complete solution for managing books, borrows, and reservations</p>
             
-            <div class="features-grid">
+            <div class="features-grid" id="features">
               <div class="feature-item">
                 <div class="feature-icon">📖</div>
                 <h3>Browse Books</h3>
@@ -53,7 +54,7 @@
       </div>
     </div>
 
-    <div class="info-section">
+    <div class="info-section" id="benefits">
       <div class="container">
         <h2 class="section-title">Why Choose Our Library System?</h2>
         
@@ -100,9 +101,13 @@
 
 <script>
 import { useRouter } from 'vue-router'
+import LandingNav from '../components/LandingNav.vue'
 
 export default {
   name: 'Landing',
+  components: {
+    LandingNav
+  },
   setup() {
     const router = useRouter()
 
@@ -126,12 +131,13 @@ export default {
 .landing-container {
   min-height: 100vh;
   background: white;
+  padding-top: 70px; /* Account for fixed nav */
 }
 
 .hero-section {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 80px 20px 100px;
+  padding: 100px 20px 120px;
   position: relative;
   overflow: hidden;
 }

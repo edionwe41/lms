@@ -203,27 +203,62 @@ export default {
 
 <style scoped>
 .reservations-page {
-  padding: 30px 0;
+  padding: 40px 0;
+  min-height: calc(100vh - 70px);
 }
 
 .page-title {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 30px;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 32px;
+  color: var(--text-dark);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .filters {
   background-color: white;
+  box-shadow: var(--shadow-md);
 }
 
 .pagination {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 16px;
+  background: var(--bg-light);
+  border-radius: var(--radius-md);
 }
 
 .pagination-info {
   font-size: 14px;
-  color: var(--text-light);
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 24px;
+  }
+
+  .filters .flex {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .filters .form-group {
+    width: 100%;
+  }
+
+  .filters > div > div {
+    width: 100%;
+  }
+
+  .pagination {
+    flex-direction: column;
+    gap: 12px;
+  }
 }
 </style>

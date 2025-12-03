@@ -335,25 +335,33 @@ export default {
 
 <style scoped>
 .books-page {
-  padding: 30px 0;
+  padding: 40px 0;
+  min-height: calc(100vh - 70px);
 }
 
 .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 
 .page-header h1 {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-dark);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .search-section {
   background: white;
-  padding: 20px;
-  margin-bottom: 20px;
+  padding: 24px;
+  margin-bottom: 32px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .search-bar-enhanced {
@@ -368,31 +376,44 @@ export default {
 
 .search-icon {
   position: absolute;
-  left: 12px;
-  font-size: 18px;
+  left: 16px;
+  font-size: 20px;
   pointer-events: none;
   opacity: 0.5;
 }
 
 .search-input {
-  padding-left: 42px !important;
-  padding-right: 36px !important;
+  padding-left: 50px !important;
+  padding-right: 44px !important;
+  font-size: 15px;
+  height: 50px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.search-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
 }
 
 .clear-btn {
   position: absolute;
-  right: 12px;
-  background: none;
+  right: 14px;
+  background: var(--bg-light);
   border: none;
   color: var(--text-light);
   cursor: pointer;
-  font-size: 16px;
-  padding: 4px;
-  transition: color 0.2s;
+  font-size: 18px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: var(--transition);
+  font-weight: 700;
 }
 
 .clear-btn:hover {
-  color: var(--danger-color);
+  background: var(--danger-color);
+  color: white;
 }
 
 .book-card {
@@ -400,81 +421,95 @@ export default {
   flex-direction: column;
   height: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid var(--border-color);
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: linear-gradient(to bottom, white 0%, #fafbfc 100%);
 }
 
 .book-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--primary-light);
 }
 
 .book-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border-light);
 }
 
 .book-icon {
-  font-size: 32px;
+  font-size: 36px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .availability-badge {
   font-size: 11px;
-  font-weight: 600;
-  padding: 4px 10px;
-  border-radius: 12px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 14px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .availability-badge.available {
-  background-color: #d4edda;
+  background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
   color: #155724;
+  border: 1px solid #b1dfbb;
 }
 
 .availability-badge.unavailable {
-  background-color: #f8d7da;
+  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
   color: #721c24;
+  border: 1px solid #f1b0b7;
 }
 
 .book-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 10px;
   color: var(--text-dark);
-  line-height: 1.3;
+  line-height: 1.4;
+  min-height: 52px;
 }
 
 .book-author {
   font-size: 14px;
   color: var(--text-light);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
 
 .book-isbn {
   font-size: 12px;
-  color: var(--text-light);
-  margin-bottom: 12px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  font-family: 'Courier New', monospace;
 }
 
 .book-description {
   font-size: 14px;
   color: var(--text-dark);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   flex-grow: 1;
-  line-height: 1.5;
+  line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
 .book-availability {
-  margin-bottom: 16px;
-  padding: 12px;
-  background-color: var(--bg-light);
-  border-radius: 6px;
+  margin-bottom: 18px;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(102, 126, 234, 0.1);
 }
 
 .availability-indicator {
@@ -482,26 +517,28 @@ export default {
 }
 
 .availability-text {
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   color: var(--text-dark);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   display: block;
 }
 
 .availability-bar {
   width: 100%;
-  height: 6px;
+  height: 8px;
   background-color: #e9ecef;
-  border-radius: 3px;
+  border-radius: 4px;
   overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .availability-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
-  border-radius: 3px;
-  transition: width 0.3s ease;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+  box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
 }
 
 .book-actions {

@@ -197,18 +197,40 @@ export default {
 
 <style scoped>
 .users-page {
-  padding: 30px 0;
+  padding: 40px 0;
+  min-height: calc(100vh - 70px);
 }
 
 .page-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 
 .page-header h1 {
-  font-size: 28px;
-  font-weight: 600;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-dark);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .page-header .btn {
+    width: 100%;
+  }
 }
 </style>
