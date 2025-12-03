@@ -31,12 +31,12 @@
             </div>
 
             <div class="cta-buttons">
-              <router-link to="/login" class="btn btn-primary btn-lg">
+              <button @click="goToLogin" class="btn btn-primary btn-lg">
                 Sign In
-              </router-link>
-              <router-link to="/register" class="btn btn-secondary btn-lg">
+              </button>
+              <button @click="goToRegister" class="btn btn-secondary btn-lg">
                 Create Account
-              </router-link>
+              </button>
             </div>
           </div>
 
@@ -83,9 +83,9 @@
         <div class="final-cta">
           <h3>Ready to get started?</h3>
           <p>Join thousands of users managing their library efficiently</p>
-          <router-link to="/register" class="btn btn-primary btn-lg">
+          <button @click="goToRegister" class="btn btn-primary btn-lg">
             Get Started Now
-          </router-link>
+          </button>
         </div>
       </div>
     </div>
@@ -99,8 +99,26 @@
 </template>
 
 <script>
+import { useRouter } from 'vue-router'
+
 export default {
-  name: 'Landing'
+  name: 'Landing',
+  setup() {
+    const router = useRouter()
+
+    const goToLogin = () => {
+      router.push('/login')
+    }
+
+    const goToRegister = () => {
+      router.push('/register')
+    }
+
+    return {
+      goToLogin,
+      goToRegister
+    }
+  }
 }
 </script>
 

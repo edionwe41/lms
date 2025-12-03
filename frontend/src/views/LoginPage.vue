@@ -3,9 +3,9 @@
     <div class="auth-container">
       <div class="auth-card card">
         <div class="auth-header">
-          <router-link to="/" class="back-link">
+          <button @click="goToLanding" class="back-link">
             ← Back to Home
-          </router-link>
+          </button>
           <h2 class="auth-title">Sign In</h2>
           <p class="auth-subtitle">Welcome back! Please enter your credentials.</p>
         </div>
@@ -43,7 +43,7 @@
 
         <div class="auth-footer">
           <p>Don't have an account? 
-            <router-link to="/register" class="link-primary">Create one here</router-link>
+            <button @click="goToRegister" class="link-primary link-button">Create one here</button>
           </p>
         </div>
       </div>
@@ -71,6 +71,14 @@ export default {
       password: ''
     })
 
+    const goToLanding = () => {
+      router.push('/')
+    }
+
+    const goToRegister = () => {
+      router.push('/register')
+    }
+
     const handleLogin = async () => {
       error.value = ''
       loading.value = true
@@ -90,7 +98,9 @@ export default {
       loading,
       error,
       loginForm,
-      handleLogin
+      handleLogin,
+      goToLanding,
+      goToRegister
     }
   }
 }
@@ -176,5 +186,35 @@ export default {
 
 .link-primary:hover {
   text-decoration: underline;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.back-link:hover {
+  color: var(--primary-color);
 }
 </style>

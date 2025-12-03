@@ -3,9 +3,9 @@
     <div class="auth-container">
       <div class="auth-card card">
         <div class="auth-header">
-          <router-link to="/" class="back-link">
+          <button @click="goToLanding" class="back-link">
             ← Back to Home
-          </router-link>
+          </button>
           <h2 class="auth-title">Create Account</h2>
           <p class="auth-subtitle">Join us and start managing your library today!</p>
         </div>
@@ -66,7 +66,7 @@
 
         <div class="auth-footer">
           <p>Already have an account? 
-            <router-link to="/login" class="link-primary">Sign in here</router-link>
+            <button @click="goToLogin" class="link-primary link-button">Sign in here</button>
           </p>
         </div>
       </div>
@@ -95,6 +95,14 @@ export default {
       role: 'student'
     })
 
+    const goToLanding = () => {
+      router.push('/')
+    }
+
+    const goToLogin = () => {
+      router.push('/login')
+    }
+
     const handleRegister = async () => {
       error.value = ''
       success.value = ''
@@ -119,7 +127,9 @@ export default {
       error,
       success,
       registerForm,
-      handleRegister
+      handleRegister,
+      goToLanding,
+      goToLogin
     }
   }
 }
@@ -212,5 +222,35 @@ export default {
 
 .link-primary:hover {
   text-decoration: underline;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.link-button:hover {
+  text-decoration: underline;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-light);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.back-link:hover {
+  color: var(--primary-color);
 }
 </style>
