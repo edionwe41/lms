@@ -131,6 +131,13 @@ export default {
     }
 
     const loadNotifications = async () => {
+      // Don't load if not authenticated
+      if (!authStore.isAuthenticated) {
+        return
+      }
+      
+      // COMMENTED OUT - Notifications API temporarily disabled
+      /*
       try {
         const response = await api.getNotifications()
         const items = response.items.map(item => ({
@@ -142,11 +149,18 @@ export default {
       } catch (err) {
         console.error('Failed to load notifications:', err)
       }
+      */
     }
 
     onMounted(() => {
-      loadNotifications()
-      connectSSE()
+      // Only load notifications if authenticated
+      // COMMENTED OUT - Notifications temporarily disabled
+      /*
+      if (authStore.isAuthenticated) {
+        loadNotifications()
+        connectSSE()
+      }
+      */
     })
 
     onUnmounted(() => {

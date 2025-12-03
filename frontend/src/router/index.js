@@ -62,14 +62,17 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore()
 
+  // Redirect to login if trying to access protected route without auth
   if (to.meta.requiresAuth && !authStore.isAuthenticated) {
     next('/login')
-  } else if ((to.path === '/login' || to.path === '/register') && authStore.isAuthenticated) {
-    next('/books')
-  } else if (to.meta.requiresLibrarian && !authStore.isLibrarian) {
+  } 
+  // Check librarian-only routes
+  else if (to.meta.requiresLibrarian && !authStore.isLibrarian) {
     alert('Access denied. Librarian or Admin role required.')
     next('/books')
-  } else {
+  } 
+  // Allow navigation
+  else {
     next()
   }
 })

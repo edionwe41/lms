@@ -46,7 +46,7 @@ def list_reservations(
     db: Session = Depends(get_db),
     current_user=Depends(get_current_user),
 ):
-    """List pending reservations (notified == 0). Returns paged results and includes reserver username.
+    """List pending reservations (notified == 0). Returns paged results and includes reserver username and book details.
 
     Query params:
     - book_id: optional filter by book
@@ -56,8 +56,20 @@ def list_reservations(
 
     offset = (page - 1) * page_size
 
-    # base query selecting reservation and user fields via join
-    q = db.query(models.Reservation, models.User.username, models.User.full_name).join(models.User, models.User.id == models.Reservation.user_id)
+    # base query selecting reservation, user, and book fields via join
+    q = db.query(
+        models.Reservation, 
+        models.User.username, 
+        models.User.full_name,
+        models.Book.title,
+        models.Book.author,
+        models.Book.isbn
+    ).join(
+        models.User, models.User.id == models.Reservation.user_id
+    ).join(
+        models.Book, models.Book.id == models.Reservation.book_id
+    )
+    
     # only pending
     q = q.filter(models.Reservation.notified == 0)
     if book_id is not None:
@@ -70,15 +82,18 @@ def list_reservations(
     q = q.order_by(models.Reservation.created_at.asc())
     items = q.offset(offset).limit(page_size).all()
 
-    # items is list of tuples (Reservation, username, full_name)
+    # items is list of tuples (Reservation, username, full_name, title, author, isbn)
     results = []
-    for r, username, full_name in items:
+    for r, username, full_name, title, author, isbn in items:
         results.append({
             "id": r.id,
             "user_id": r.user_id,
             "username": username,
             "full_name": full_name,
             "book_id": r.book_id,
+            "book_title": title,
+            "book_author": author,
+            "book_isbn": isbn,
             "created_at": r.created_at,
             "notified": getattr(r, "notified", 0),
         })

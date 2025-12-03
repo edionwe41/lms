@@ -43,7 +43,7 @@
             <tr>
               <th>ID</th>
               <th>User</th>
-              <th>Book ID</th>
+              <th>Book Details</th>
               <th>Reserved At</th>
               <th>Status</th>
               <th>Actions</th>
@@ -56,7 +56,11 @@
                 <div><strong>{{ reservation.username }}</strong></div>
                 <div class="text-light" style="font-size: 12px;">{{ reservation.full_name }}</div>
               </td>
-              <td>{{ reservation.book_id }}</td>
+              <td>
+                <div><strong>{{ reservation.book_title }}</strong></div>
+                <div class="text-light" style="font-size: 12px;">by {{ reservation.book_author }}</div>
+                <div class="text-light" style="font-size: 11px;">ISBN: {{ reservation.book_isbn }}</div>
+              </td>
               <td>{{ formatDate(reservation.created_at) }}</td>
               <td>
                 <span :class="['badge', reservation.notified ? 'badge-success' : 'badge-warning']">
@@ -108,6 +112,7 @@
 <script>
 import { ref, onMounted } from 'vue'
 import api from '../services/api'
+import { showToast } from '../components/Toast.vue'
 
 export default {
   name: 'Reservations',
@@ -154,10 +159,10 @@ export default {
       
       try {
         await api.cancelReservation(id)
-        alert('Reservation cancelled successfully!')
+        showToast('Reservation cancelled successfully!', 'success')
         loadReservations()
       } catch (err) {
-        alert(err.response?.data?.detail || 'Failed to cancel reservation')
+        showToast(err.response?.data?.detail || 'Failed to cancel reservation', 'error')
       }
     }
 

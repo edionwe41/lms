@@ -14,7 +14,7 @@
         <table class="table">
           <thead>
             <tr>
-              <th>Book ID</th>
+              <th>Book Details</th>
               <th>Borrowed At</th>
               <th>Due Date</th>
               <th>Status</th>
@@ -24,7 +24,11 @@
           </thead>
           <tbody>
             <tr v-for="borrow in borrows" :key="borrow.id">
-              <td>{{ borrow.book_id }}</td>
+              <td>
+                <div><strong>{{ borrow.book_title }}</strong></div>
+                <div class="text-light" style="font-size: 12px;">by {{ borrow.book_author }}</div>
+                <div class="text-light" style="font-size: 11px;">ISBN: {{ borrow.book_isbn }}</div>
+              </td>
               <td>{{ formatDate(borrow.borrowed_at) }}</td>
               <td>{{ formatDate(borrow.due_date) }}</td>
               <td>
@@ -38,7 +42,7 @@
                   Active
                 </span>
               </td>
-              <td>₦{{ borrow.fee_applied }}</td>
+              <td>₦{{ borrow.fee_applied || 0 }}</td>
               <td>
                 <button 
                   v-if="!borrow.returned_at"
@@ -47,8 +51,8 @@
                 >
                   Return
                 </button>
-                <span v-else class="text-light">
-                  Returned on {{ formatDate(borrow.returned_at) }}
+                <span v-else class="text-light" style="font-size: 12px;">
+                  {{ formatDate(borrow.returned_at) }}
                 </span>
               </td>
             </tr>
@@ -59,7 +63,7 @@
       <!-- Empty State -->
       <div v-else class="card text-center">
         <p>You haven't borrowed any books yet.</p>
-        <router-link to="/" class="btn btn-primary mt-2">Browse Books</router-link>
+        <router-link to="/books" class="btn btn-primary mt-2">Browse Books</router-link>
       </div>
     </div>
   </div>
@@ -68,6 +72,7 @@
 <script>
 import { ref, onMounted } from 'vue'
 import api from '../services/api'
+import { showToast } from '../components/Toast.vue'
 
 export default {
   name: 'MyBorrows',
@@ -94,10 +99,10 @@ export default {
       
       try {
         await api.returnBook(borrowId)
-        alert('Book returned successfully!')
+        showToast('Book returned successfully!', 'success')
         loadBorrows()
       } catch (err) {
-        alert(err.response?.data?.detail || 'Failed to return book')
+        showToast(err.response?.data?.detail || 'Failed to return book', 'error')
       }
     }
 

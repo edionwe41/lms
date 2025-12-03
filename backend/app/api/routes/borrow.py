@@ -45,5 +45,27 @@ def return_book(
 
 @router.get("/me", response_model=list)
 def my_borrows(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
-    records = list_user_borrows(db, current_user.id)
-    return records
+    from backend.app.db import models
+    
+    # Join borrows with books to get book details
+    results = db.query(models.Borrow, models.Book).join(
+        models.Book, models.Book.id == models.Borrow.book_id
+    ).filter(models.Borrow.user_id == current_user.id).all()
+    
+    # Format the response to include book details
+    formatted_results = []
+    for borrow, book in results:
+        formatted_results.append({
+            "id": borrow.id,
+            "book_id": borrow.book_id,
+            "user_id": borrow.user_id,
+            "borrowed_at": borrow.borrowed_at,
+            "due_date": borrow.due_date,
+            "returned_at": borrow.returned_at,
+            "fee_applied": borrow.fee_applied,
+            "book_title": book.title,
+            "book_author": book.author,
+            "book_isbn": book.isbn
+        })
+    
+    return formatted_results

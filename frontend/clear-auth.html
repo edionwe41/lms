@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Auth - Library MS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 600px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        .status {
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        
+        button {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+        
+        button.primary {
+            background: #4a90e2;
+        }
+        
+        button.primary:hover {
+            background: #357abd;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .info-box h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .info-box p {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+        
+        .data-display {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+            margin: 10px 0;
+            word-break: break-all;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Clear Authentication Data</h1>
+        
+        <div id="current-status" class="status info">
+            Checking current authentication status...
+        </div>
+        
+        <div class="info-box">
+            <h3>Current Data:</h3>
+            <p><strong>Token:</strong></p>
+            <div id="token-display" class="data-display">Loading...</div>
+            <p><strong>User:</strong></p>
+            <div id="user-display" class="data-display">Loading...</div>
+        </div>
+        
+        <button onclick="clearAuth()">🗑️ Clear Authentication Data</button>
+        <button class="primary" onclick="goToHome()">🏠 Go to Home Page</button>
+        
+        <div class="info-box">
+            <h3>What This Does:</h3>
+            <p>✓ Removes invalid/expired authentication tokens</p>
+            <p>✓ Clears user session data</p>
+            <p>✓ Resets app to logged-out state</p>
+            <p>✓ Redirects you to the landing page</p>
+        </div>
+    </div>
+    
+    <script>
+        function displayCurrentData() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            const statusDiv = document.getElementById('current-status');
+            
+            document.getElementById('token-display').textContent = token || 'None';
+            document.getElementById('user-display').textContent = user || 'None';
+            
+            if (token || user) {
+                statusDiv.className = 'status warning';
+                statusDiv.innerHTML = '⚠️ Authentication data found in localStorage.<br>This may be causing issues if invalid.';
+            } else {
+                statusDiv.className = 'status success';
+                statusDiv.textContent = '✓ No authentication data found. You\'re good!';
+            }
+        }
+        
+        function clearAuth() {
+            const hadData = localStorage.getItem('token') || localStorage.getItem('user');
+            
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            localStorage.removeItem('notifications');
+            
+            const statusDiv = document.getElementById('current-status');
+            statusDiv.className = 'status success';
+            
+            if (hadData) {
+                statusDiv.textContent = '✅ Authentication data cleared successfully!';
+            } else {
+                statusDiv.textContent = 'ℹ️ No authentication data was found to clear.';
+            }
+            
+            displayCurrentData();
+            
+            // Auto redirect after 2 seconds
+            setTimeout(() => {
+                statusDiv.textContent = '✅ Cleared! Redirecting to home page...';
+                setTimeout(() => {
+                    window.location.href = '/';
+                }, 1000);
+            }, 1000);
+        }
+        
+        function goToHome() {
+            window.location.href = '/';
+        }
+        
+        // Display current data on page load
+        displayCurrentData();
+    </script>
+</body>
+</html>

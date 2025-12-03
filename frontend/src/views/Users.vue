@@ -106,6 +106,7 @@
 <script>
 import { ref, onMounted } from 'vue'
 import api from '../services/api'
+import { showToast } from '../components/Toast.vue'
 
 export default {
   name: 'Users',
@@ -144,7 +145,7 @@ export default {
 
       try {
         await api.createUser(userForm.value)
-        alert('User created successfully!')
+        showToast('User created successfully!', 'success')
         closeModal()
         loadUsers()
       } catch (err) {

@@ -23,10 +23,17 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === 401 || error.response?.status === 403) {
+      // Clear invalid auth
       localStorage.removeItem('token')
       localStorage.removeItem('user')
-      window.location.href = '/login'
+      
+      // Only redirect if not already on login page
+      const currentPath = window.location.pathname
+      if (currentPath !== '/login' && currentPath !== '/register' && currentPath !== '/') {
+        console.warn('Authentication failed, redirecting to login...')
+        window.location.href = '/login'
+      }
     }
     return Promise.reject(error)
   }

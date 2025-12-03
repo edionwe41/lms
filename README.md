@@ -1,28 +1,34 @@
 # Library Management System
 
-A full-stack Library Management System with FastAPI backend and Vue.js frontend.
+A modern, full-stack Library Management System with FastAPI backend and Vue.js frontend, featuring a clean, responsive UI and real-time notifications.
 
-## Features
+## ✨ Features
 
 ### Backend (FastAPI)
 - RESTful API with FastAPI
 - JWT authentication with role-based access control
 - SQLAlchemy ORM with SQLite database
 - Real-time notifications via Server-Sent Events (SSE)
-- Book catalogue management
+- Book catalogue management with complete details
 - Borrow and return tracking with late fees
-- Reservation system with notifications
+- Reservation system with automatic notifications
+- Optimized database queries with joins
 
 ### Frontend (Vue.js)
 - Modern, responsive UI built with Vue 3
-- Real-time notifications
+- Professional toast notification system
+- Enhanced book catalogue with visual availability indicators
+- Comprehensive book information display in all views
+- Real-time notifications dropdown
 - Role-based access control
+- Advanced search with debouncing
 - Book browsing and search
-- Borrow management
+- Borrow management with full book details
 - Reservation system
 - User management (admin/librarian)
+- Mobile-optimized responsive design
 
-## Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 - Python 3.8+
@@ -58,7 +64,20 @@ A full-stack Library Management System with FastAPI backend and Vue.js frontend.
    ```
    Frontend will run at: `http://localhost:3000`
 
-## Project Structure
+## 🎨 Recent UI Improvements
+
+This system features a completely redesigned user interface with:
+
+- **Enhanced Book Catalogue**: Visual availability indicators, progress bars, and improved card design
+- **Toast Notifications**: Modern, non-intrusive success/error feedback
+- **Complete Book Details**: All views now show book titles, authors, and ISBNs (not just IDs)
+- **Responsive Design**: Fully optimized for mobile, tablet, and desktop
+- **Better Navigation Flow**: Auto-redirect authenticated users to relevant pages
+- **Professional Polish**: Smooth animations, hover effects, and improved typography
+
+See `UI_IMPROVEMENTS.md` and `UI_QUICK_REFERENCE.md` for detailed documentation.
+
+## 📁 Project Structure
 
 ```
 lms/
