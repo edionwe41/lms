@@ -1,1 +1,0 @@
-This is the app static directory. Put static assets (css/js/images) here.
