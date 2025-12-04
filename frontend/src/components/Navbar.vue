@@ -16,22 +16,29 @@
           </router-link>
           <router-link to="/books" class="nav-link" @click="closeMenu">
             <span class="nav-icon">📖</span>
-            <span>Books</span>
+            <span>{{ isLibrarian ? 'Manage Books' : 'Books' }}</span>
           </router-link>
-          <router-link to="/my-borrows" class="nav-link" @click="closeMenu">
+          
+          <!-- Student-only links -->
+          <router-link v-if="!isLibrarian" to="/my-borrows" class="nav-link" @click="closeMenu">
             <span class="nav-icon">📚</span>
             <span>My Borrows</span>
           </router-link>
-          <router-link to="/reservations" class="nav-link" @click="closeMenu">
+          <router-link v-if="!isLibrarian" to="/reservations" class="nav-link" @click="closeMenu">
             <span class="nav-icon">🔔</span>
             <span>Reservations</span>
           </router-link>
-          <router-link 
-            v-if="authStore.isLibrarian" 
-            to="/users" 
-            class="nav-link"
-            @click="closeMenu"
-          >
+          
+          <!-- Librarian-only links -->
+          <router-link v-if="isLibrarian" to="/my-borrows" class="nav-link" @click="closeMenu">
+            <span class="nav-icon">📋</span>
+            <span>All Borrows</span>
+          </router-link>
+          <router-link v-if="isLibrarian" to="/reservations" class="nav-link" @click="closeMenu">
+            <span class="nav-icon">🔔</span>
+            <span>All Reservations</span>
+          </router-link>
+          <router-link v-if="isLibrarian" to="/users" class="nav-link" @click="closeMenu">
             <span class="nav-icon">👥</span>
             <span>Users</span>
           </router-link>
@@ -40,9 +47,9 @@
         <div class="navbar-actions">
           <div class="user-info">
             <div class="user-details">
-              <span class="user-name">{{ authStore.currentUser?.full_name }}</span>
+              <span class="user-name">{{ currentUser?.full_name }}</span>
               <span :class="['user-role', 'badge', getRoleBadge()]">
-                {{ authStore.currentUser?.role }}
+                {{ currentUser?.role }}
               </span>
             </div>
           </div>
@@ -85,7 +92,7 @@ export default {
     }
 
     const getRoleBadge = () => {
-      const role = authStore.currentUser?.role
+      const role = authStore.currentUser.value?.role
       if (role === 'admin') return 'badge-danger'
       if (role === 'librarian') return 'badge-primary'
       return 'badge-success'
@@ -100,7 +107,10 @@ export default {
     }
 
     return {
-      authStore,
+      // Destructure authStore to properly expose computed refs
+      currentUser: authStore.currentUser,
+      isLibrarian: authStore.isLibrarian,
+      isAuthenticated: authStore.isAuthenticated,
       handleLogout,
       getRoleBadge,
       menuOpen,
