@@ -81,7 +81,7 @@ def get_all_borrows(db: Session = Depends(get_db), current_user=Depends(get_curr
             "book_author": book.author,
             "book_isbn": book.isbn,
             "user_name": user.full_name,
-            "user_email": user.email
+            "username": user.username
         })
     
     return formatted_results
