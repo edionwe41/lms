@@ -4,7 +4,7 @@
       <div class="page-header">
         <h1>Book Catalogue</h1>
         <button 
-          v-if="authStore.isLibrarian" 
+          v-if="isLibrarian" 
           @click="showAddModal = true" 
           class="btn btn-primary"
         >
@@ -14,6 +14,15 @@
 
       <!-- Search and Filters -->
       <div class="search-section card mb-3">
+        <!-- Debug Info (Remove after testing) -->
+        <div style="background: #f0f0f0; padding: 10px; margin-bottom: 10px; border-radius: 5px; font-size: 12px;">
+          <strong>Debug Info:</strong><br>
+          User: {{ currentUser?.username }} ({{ currentUser?.role }})<br>
+          isLibrarian: {{ isLibrarian }}<br>
+          !isLibrarian: {{ !isLibrarian }}<br>
+          Books count: {{ books.length }}
+        </div>
+        
         <div class="search-bar-enhanced">
           <div class="search-input-wrapper">
             <span class="search-icon">🔍</span>
@@ -71,22 +80,27 @@
           </div>
 
           <div class="book-actions mt-2">
+            <!-- Debug: Show all conditions -->
+            <div style="font-size: 10px; color: #666; margin-bottom: 5px;">
+              available: {{ book.available_copies }} | isLib: {{ isLibrarian }} | Show Borrow: {{ book.available_copies > 0 && !isLibrarian }}
+            </div>
+            
             <button 
-              v-if="book.available_copies > 0 && !authStore.isLibrarian" 
+              v-if="book.available_copies > 0 && !isLibrarian" 
               @click="borrowBook(book.id)"
               class="btn btn-primary btn-sm btn-block"
             >
               📚 Borrow Now
             </button>
             <button 
-              v-else-if="!authStore.isLibrarian" 
+              v-else-if="!isLibrarian" 
               @click="reserveBook(book.id)"
               class="btn btn-secondary btn-sm btn-block"
             >
               🔔 Reserve Book
             </button>
             
-            <div v-if="authStore.isLibrarian" class="librarian-actions">
+            <div v-if="isLibrarian" class="librarian-actions">
               <button 
                 @click="editBook(book)"
                 class="btn btn-secondary btn-sm"
@@ -306,11 +320,18 @@ export default {
     }
 
     onMounted(() => {
+      console.log('Books page mounted')
+      console.log('User:', authStore.currentUser)
+      console.log('Is Librarian:', authStore.isLibrarian)
+      console.log('User role:', authStore.currentUser?.role)
       loadBooks()
     })
 
     return {
-      authStore,
+      // Destructure authStore to properly expose computed refs
+      currentUser: authStore.currentUser,
+      isLibrarian: authStore.isLibrarian,
+      isAuthenticated: authStore.isAuthenticated,
       books,
       loading,
       error,

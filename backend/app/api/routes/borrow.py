@@ -11,6 +11,13 @@ router = APIRouter()
 
 @router.post("/", response_model=BorrowRead)
 def borrow_book(req: BorrowRequest, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
+    # Only students can borrow books, not librarians/admins
+    if current_user.role in ["librarian", "admin"]:
+        raise HTTPException(
+            status_code=403, 
+            detail="Librarians and admins cannot borrow books. Only students can borrow."
+        )
+    
     service = BorrowService(db)
     try:
         borrow = service.borrow(current_user, req.book_id)
