@@ -2,7 +2,7 @@
   <div class="borrows-page">
     <div class="container">
       <div class="page-header">
-        <h1 class="page-title">My Borrowed Books</h1>
+        <h1 class="page-title">{{ authStore.isLibrarian ? 'All Borrowed Books' : 'My Borrowed Books' }}</h1>
         <div class="summary-stats" v-if="borrows.length > 0">
           <div class="stat-item">
             <span class="stat-value">{{ activeCount }}</span>
@@ -30,6 +30,7 @@
         <table class="table">
           <thead>
             <tr>
+              <th v-if="authStore.isLibrarian">Borrower</th>
               <th>Book Details</th>
               <th>Borrowed At</th>
               <th>Due Date</th>
@@ -40,6 +41,12 @@
           </thead>
           <tbody>
             <tr v-for="borrow in borrows" :key="borrow.id" :class="{ 'overdue-row': !borrow.returned_at && isOverdue(borrow.due_date) }">
+              <td v-if="authStore.isLibrarian">
+                <div class="user-info-cell">
+                  <div class="user-name-cell"><strong>{{ borrow.user_name }}</strong></div>
+                  <div class="user-username-cell">@{{ borrow.username }}</div>
+                </div>
+              </td>
               <td>
                 <div class="book-info">
                   <div class="book-title-cell"><strong>{{ borrow.book_title }}</strong></div>
@@ -108,6 +115,11 @@
             </span>
           </div>
           
+          <div v-if="authStore.isLibrarian" class="mobile-user-info">
+            <strong>👤 {{ borrow.user_name }}</strong>
+            <span class="mobile-username">@{{ borrow.username }}</span>
+          </div>
+          
           <h3 class="mobile-book-title">{{ borrow.book_title }}</h3>
           <p class="mobile-book-author">by {{ borrow.book_author }}</p>
           <p class="mobile-book-isbn">ISBN: {{ borrow.book_isbn }}</p>
@@ -155,12 +167,14 @@
 
 <script>
 import { ref, onMounted, computed } from 'vue'
+import { useAuthStore } from '../stores/auth'
 import api from '../services/api'
 import { showToast } from '../components/Toast.vue'
 
 export default {
   name: 'MyBorrows',
   setup() {
+    const authStore = useAuthStore()
     const borrows = ref([])
     const loading = ref(false)
     const error = ref('')
@@ -182,9 +196,15 @@ export default {
       error.value = ''
       
       try {
-        borrows.value = await api.getMyBorrows()
+        // Librarians see all borrows, students see only their own
+        if (authStore.isLibrarian.value) {
+          borrows.value = await api.getAllBorrows()
+        } else {
+          borrows.value = await api.getMyBorrows()
+        }
       } catch (err) {
         error.value = 'Failed to load borrows'
+        console.error('Error loading borrows:', err)
       } finally {
         loading.value = false
       }
@@ -221,6 +241,7 @@ export default {
     })
 
     return {
+      authStore,
       borrows,
       loading,
       error,
@@ -308,6 +329,22 @@ export default {
   gap: 4px;
 }
 
+.user-info-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-name-cell {
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.user-username-cell {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
 .book-title-cell {
   font-size: 15px;
   color: var(--text-dark);
@@ -390,6 +427,21 @@ export default {
 
 .book-icon-mobile {
   font-size: 32px;
+}
+
+.mobile-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+  padding: 10px;
+  background: var(--bg-light);
+  border-radius: 8px;
+}
+
+.mobile-username {
+  font-size: 12px;
+  color: var(--text-light);
 }
 
 .mobile-book-title {
